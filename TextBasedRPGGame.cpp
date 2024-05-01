@@ -115,81 +115,112 @@ public:
     }
 
     void showMap() {
-        std::cout << "You view the map \n";
+        std::cout << "================== MAP ====================\n";
         for (int i = 0; i < map.size(); i++) {
             for (int j = 0; j < map[i].size(); j++) {
                 if (i == player.y && j == player.x) {
-                    std::cout << " |" << "*" << std::setw(9) << map[i][j];
+                    std::cout << " ||" << "*" << std::setw(9) << map[i][j];
                 }
                 else {
-                    std::cout << " |" << std::setw(10) << map[i][j];
+                    std::cout << " ||" << std::setw(10) << map[i][j];
                 }
             }
-            std::cout << "|\n";
+            std::cout << "||\n";
+            std::cout << "===========================================\n";
         }
     }
 
 
     void moveNorth() {
         std::cout << "Moving North...\n";
-        if (player.y > 0)
-        {
+        if (player.y > 0) {
             player.y--;
+            std::cout << "Entering: " << map[player.y][player.x] << "\n";  // Corrected the order of indices
         }
-        else
-        {
+        else {
             std::cout << "Cannot move further North. \n";
         }
-        
-        
-
     }
 
     void moveEast() {
         std::cout << "Moving East...\n";
-        if (player.x < map.size()-1)
-        {
+        if (player.x < map[0].size() - 1) {  // Assuming all rows are the same width
             player.x++;
+            std::cout << "Entering: " << map[player.y][player.x] << "\n"; 
         }
-        else
-        {
+        else {
             std::cout << "Cannot move further East. \n";
         }
-
-
-
     }
 
     void moveSouth() {
         std::cout << "Moving South...\n";
-
-        if (player.y < map.size() -1) // locks it to a perfect grid square if not gonna be issues later
-        {
+        if (player.y < map.size() - 1) {  // Corrected to use map.size() for y boundary
             player.y++;
+            std::cout << "Entering: " << map[player.y][player.x] << "\n";
         }
         else {
             std::cout << "Cannot move further South. \n";
         }
-
-
     }
 
     void moveWest() {
         std::cout << "Moving West...\n";
-        if (player.x > 0)
-        {
+        if (player.x > 0) {
             player.x--;
+            std::cout << "Entering: " << map[player.y][player.x] << "\n";
         }
-        else
-        {
+        else {
             std::cout << "Cannot move further West. \n";
         }
-
-
-
     }
+
 };
 
+void displayHelp() {
+    std::cout << "Available Commands:\n"
+        << "  map - Display the game map\n"
+        << "  move north - Move one tile north\n"
+        << "  move south - Move one tile south\n"
+        << "  move east - Move one tile east\n"
+        << "  move west - Move one tile west\n"
+        << "  quit - Exit the game\n"
+        << "  clear - Clear the screen\n"
+        << "  stats - show stats\n"
+        << std::endl;
+}
+
+void handleCommand(const std::string& input, GameState& world) {
+    if (input == "help") {
+        displayHelp();
+    }
+    else if (input == "clear") {
+        system("cls");
+        std::cout << "Chat logs were cleared!\n";
+    }
+    else if (input == "stats")
+    {
+        world.player.displayCharacter();
+    }
+    else if (input == "map") {
+        world.showMap();
+    }
+    else if (input == "move north") {
+        world.moveNorth();
+    }
+    else if (input == "move south") {
+        world.moveSouth();
+    }
+    else if (input == "move east") {
+        world.moveEast();
+    }
+    else if (input == "move west") {
+        world.moveWest();
+    }
+    else {
+        std::cout << "Unknown command. Type 'help' for more information.\n";
+    }
+}
 
 
 
@@ -211,46 +242,14 @@ int main() {
     while (world.player.health > 0) {
         std::cout << "> ";
         std::getline(std::cin, input);
-
-        // Process input
         if (input == "quit") {
-            break;
-        }
-        // Add more commands and interactions here
-
-        if (input == "clear") {
-            
-            system("cls");
-            std::cout << "Chat logs were cleared!\n";
+            break; // quits
         }
 
-        if (input == "map")
-        {
-            world.showMap();
-        }
-
-        if (input == "move north")
-        {
-            world.moveNorth();
-        }
-
-        if (input == "move south")
-        {
-            world.moveSouth();
-        }
-
-        if (input == "move east")
-        {
-            world.moveEast();
-        }
-
-        if (input == "move west")
-        {
-            world.moveWest();
-        }
+        handleCommand(input, world);
 
 
-        std::cout << "You typed: " << input << std::endl;
+       // std::cout << "You typed: " << input << std::endl;
     }
 
     return 0;

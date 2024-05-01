@@ -3,6 +3,6 @@ C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.c
 C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(107,31): warning C4018: '<': signed/unsigned mismatch
 C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(119,27): warning C4018: '<': signed/unsigned mismatch
 C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(120,31): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(150,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(166,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(147,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(158,22): warning C4018: '<': signed/unsigned mismatch
   TextBasedRPGGame.vcxproj -> C:\Users\19189\source\repos\TextBasedRPGGame\Debug\TextBasedRPGGame.exe
