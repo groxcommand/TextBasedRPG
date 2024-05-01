@@ -1,2 +1,4 @@
 ﻿  TextBasedRPGGame.cpp
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(95,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(96,28): warning C4018: '<': signed/unsigned mismatch
   TextBasedRPGGame.vcxproj -> C:\Users\19189\source\repos\TextBasedRPGGame\Debug\TextBasedRPGGame.exe
