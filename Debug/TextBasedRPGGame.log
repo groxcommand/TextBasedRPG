@@ -1,8 +1,10 @@
 ﻿  TextBasedRPGGame.cpp
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(106,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(107,31): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(119,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(120,31): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(147,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(158,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(169,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(170,31): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(215,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(216,31): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(228,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(229,31): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(258,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(269,22): warning C4018: '<': signed/unsigned mismatch
   TextBasedRPGGame.vcxproj -> C:\Users\19189\source\repos\TextBasedRPGGame\Debug\TextBasedRPGGame.exe

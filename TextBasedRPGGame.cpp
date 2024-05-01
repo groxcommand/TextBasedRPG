@@ -3,6 +3,34 @@
 #include <vector>
 #include <iomanip>
 
+class NPC {
+public:
+    std::string name;
+    std::string description;
+    std::string dialogue;
+    int health;
+    int strength;
+    int dex;
+    int magic;
+    bool isDefeated;
+
+
+    int x, y; // starting coordinates of a NPC
+
+    NPC(std::string name, std::string description, std::string dialogue, int startX, int startY, int health, int strength, int dex, int magic) :
+        name(name), description(description), dialogue(dialogue), x(startX), y(startY), health(health), strength(strength), dex(dex), magic(magic), isDefeated(false){}
+
+    void interact() {
+        if (!isDefeated)
+        {
+            std::cout << name << " says: " << dialogue << std::endl;
+        }
+        else {
+            std::cout << name << " is defeated and can no longer interact." << std::endl;
+        }
+    }
+};
+
 class Character {
 public:
     std::string name;
@@ -88,17 +116,98 @@ public:
 
     Character player;
     std::vector<std::vector<std::string>> map;
+    std::vector<NPC> npcs;
 
     GameState() : player(createCharacter()) {  // Initialize the player using the createCharacter function
         initializeMap();
         setInitialPlayerPosition();
     }
+    // Combat System //////////
+    bool playerAttacksFirst() {
+        // Simple random initiative for now
+        return rand() % 2 == 0;  // 50-50 chance
+    }
+
+    void combat(Character& player, NPC& enemy) {
+        bool playerTurn = playerAttacksFirst();
+
+        std::cout << (playerTurn ? "You attack first!\n" : "Zombie attacks first!\n");
+
+        while (player.health > 0 && enemy.health > 0) {
+            if (playerTurn) {
+                enemy.health -= player.strength;
+                std::cout << "You hit the zombie for " << player.strength << " damage.\n";
+            }
+            else {
+                player.health -= enemy.strength;
+                std::cout << "Zombie hits you for " << enemy.strength << " damage.\n";
+            }
+
+            if (enemy.health <= 0) {
+                std::cout << "Zombie defeated!\n";
+                enemy.isDefeated = true;
+                break;
+            }
+            else if (player.health <= 0) {
+                std::cout << "You have been defeated!\n";
+                break;
+            }
+
+            playerTurn = !playerTurn;  // Switch turns
+        }
+    }
+
+
+
+    // Combat Above
+
+    // NPCS //////////////////////////////////////////////////
+    void initializeNPCs() {
+        npcs.push_back(NPC("Zombie", "Spooky ", "RAAAAUUUUGHHHH!", 1, 1, 20, 10, 5, 5));
+    }
+    void showMapWithNPCs() {
+        for (int i = 0; i < map.size(); i++) {
+            for (int j = 0; j < map[i].size(); j++) {
+                bool npcFound = false;
+                for (const auto& npc : npcs) {
+                    if (npc.x == j && npc.y == i && !npc.isDefeated) {
+                        std::cout << "?";
+                        npcFound = true;
+                        break;
+                    }
+                }
+                if (!npcFound) {
+                    std::cout << " " << map[i][j] << " ";
+                }
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    void interactWithNPC(int x, int y) {
+        for (auto& npc : npcs) {
+            if (npc.x == x && npc.y == y) {
+                std::cout << "You encounter " << npc.name << ": " << npc.description;
+                npc.interact();
+                if (npc.name == "Zombie" && !npc.isDefeated)
+                {
+                    combat(player, npc);
+                }
+              
+                return;
+            }
+        }
+        std::cout << "There is no one here to interact with.\n";
+    }
+
+    // NPCS Above
 
     void initializeMap() {
         map = {
-            {"Fort", "Plains", "River"},
-            {"Forest", "Town", "Plains"},
-            {"Mountains", "Plains", "Cave"}
+            {"Fortress", "Mountains", "Plains", "Swamp", "Lake", "Swamp"},
+            {"Mountains", "Plains", "Plains", "Forest", "Village", "Forest"},
+            {"Plains", "Cave", "Town", "Hills", "Cave", "Deadlands"},
+            {"River", "Mountains", "Pond", "Desert", "Cave", "Desert"}
         };
     }
 
@@ -115,20 +224,22 @@ public:
     }
 
     void showMap() {
-        std::cout << "================== MAP ====================\n";
+        std::cout << "================== MAP ============================================================\n";
         for (int i = 0; i < map.size(); i++) {
             for (int j = 0; j < map[i].size(); j++) {
                 if (i == player.y && j == player.x) {
-                    std::cout << " ||" << "*" << std::setw(9) << map[i][j];
+                    std::cout << " ||" << "*" << std::setw(7) << map[i][j];
                 }
                 else {
                     std::cout << " ||" << std::setw(10) << map[i][j];
                 }
             }
             std::cout << "||\n";
-            std::cout << "===========================================\n";
+            std::cout << "===================================================================================\n";
         }
     }
+
+
 
 
     void moveNorth() {
@@ -187,6 +298,7 @@ void displayHelp() {
         << "  quit - Exit the game\n"
         << "  clear - Clear the screen\n"
         << "  stats - show stats\n"
+        << "  interact - interact with NPCs\n"
         << std::endl;
 }
 
@@ -201,6 +313,10 @@ void handleCommand(const std::string& input, GameState& world) {
     else if (input == "stats")
     {
         world.player.displayCharacter();
+    }
+    else if (input == "interact")
+    {
+        world.interactWithNPC(world.player.x, world.player.y);
     }
     else if (input == "map") {
         world.showMap();
@@ -235,6 +351,7 @@ int main() {
     GameState world;
 
     world.player.displayCharacter();
+    world.initializeNPCs();
 
     std::cout << "Hello, " << world.player.name << ", your adventure begins!" << std::endl;
 
@@ -245,7 +362,6 @@ int main() {
         if (input == "quit") {
             break; // quits
         }
-
         handleCommand(input, world);
 
 
