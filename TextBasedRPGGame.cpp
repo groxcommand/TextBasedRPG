@@ -164,6 +164,7 @@ public:
     // NPCS //////////////////////////////////////////////////
     void initializeNPCs() {
         npcs.push_back(NPC("Zombie", "Spooky ", "RAAAAUUUUGHHHH!", 1, 1, 20, 10, 5, 5));
+        npcs.push_back(NPC("Zombie", "Spooky ", "RAAAAUUUUGHHHH!", 3, 2, 20, 10, 5, 5));
     }
     void showMapWithNPCs() {
         for (int i = 0; i < map.size(); i++) {
@@ -171,7 +172,7 @@ public:
                 bool npcFound = false;
                 for (const auto& npc : npcs) {
                     if (npc.x == j && npc.y == i && !npc.isDefeated) {
-                        std::cout << "?";
+                        std::cout << "?->";
                         npcFound = true;
                         break;
                     }
@@ -228,7 +229,7 @@ public:
         for (int i = 0; i < map.size(); i++) {
             for (int j = 0; j < map[i].size(); j++) {
                 if (i == player.y && j == player.x) {
-                    std::cout << " ||" << "*" << std::setw(7) << map[i][j];
+                    std::cout << " ||" << "*" << std::setw(9) << map[i][j];
                 }
                 else {
                     std::cout << " ||" << std::setw(10) << map[i][j];
@@ -352,6 +353,8 @@ int main() {
 
     world.player.displayCharacter();
     world.initializeNPCs();
+
+    //world.showMapWithNPCs(); // uncomment to see npcs
 
     std::cout << "Hello, " << world.player.name << ", your adventure begins!" << std::endl;
 
