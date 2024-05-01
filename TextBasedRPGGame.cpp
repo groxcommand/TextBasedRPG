@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Character {
 public:
@@ -7,12 +8,13 @@ public:
     int health;
     int strength;
 
-    Character(std::string n, int h, int s) : name(n), health(h), strength(s) {}
+    Character(std::string name, int health, int strength) :
+        name(name), health(health), strength(strength) {}
 };
 
 void displayWelcome() {
     std::cout << "Welcome to the Adventure RPG!" << std::endl;
-    std::cout << "Please enter your character's name: ";
+    std::cout << "Enter your character's name: ";
 }
 
 int main() {
@@ -20,18 +22,22 @@ int main() {
 
     std::string playerName;
     std::cin >> playerName;
-    // test git
-     // test git
- // test git
- // test git
- // test git
-
     Character player(playerName, 100, 10);
-    std::cout << "Hello, " << player.name << "! Let the adventure begin." << std::endl;
 
-    // Game loop here
+    std::cout << "Hello, " << player.name << ", your adventure begins!" << std::endl;
+
+    std::string input;
     while (player.health > 0) {
-        // Implement game interactions such as combat, finding items, etc.
+        std::cout << "> ";
+        std::cin >> input;
+
+        // Process input
+        if (input == "quit") {
+            break;
+        }
+        // Add more commands and interactions here
+
+        std::cout << "You typed: " << input << std::endl;
     }
 
     return 0;
