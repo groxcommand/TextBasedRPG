@@ -53,10 +53,13 @@ public:
 
     void displayCharacter() {
         std::cout << "Name: " << name << "\n"
+            << "Level: " << level << "\n"
+            << "Class: " << charClass << "\n"
             << "Health: " << health << "\n"
             << "Strength: " << strength << "\n"
             << "Agility: " << dex << "\n"
-            << "Magic: " << magic << std::endl;
+            << "Magic: " << magic << "\n"
+            << "EXP: " << exp << "/" << neededEXP << std::endl;
     }
 };
 
@@ -127,40 +130,7 @@ public:
         initializeMap();
         setInitialPlayerPosition();
     }
-    // Combat System //////////
-    bool playerAttacksFirst() {
-        // Simple random initiative for now
-        return rand() % 2 == 0;  // 50-50 chance
-    }
 
-    void combat(Character& player, NPC& enemy) {
-        bool playerTurn = playerAttacksFirst();
-
-        std::cout << (playerTurn ? "You attack first!\n" : "Zombie attacks first!\n");
-
-        while (player.health > 0 && enemy.health > 0) {
-            if (playerTurn) {
-                enemy.health -= player.strength;
-                std::cout << "You hit the zombie for " << player.strength << " damage.\n";
-            }
-            else {
-                player.health -= enemy.strength;
-                std::cout << "Zombie hits you for " << enemy.strength << " damage.\n";
-            }
-
-            if (enemy.health <= 0) {
-                std::cout << "Zombie defeated!\n";
-                enemy.isDefeated = true;
-                break;
-            }
-            else if (player.health <= 0) {
-                std::cout << "You have been defeated!\n";
-                break;
-            }
-
-            playerTurn = !playerTurn;  // Switch turns
-        }
-    }
 
     // XP Function
 
@@ -227,6 +197,45 @@ public:
         if (player.exp == player.neededEXP)
         {
             levelUp();
+        }
+    }
+
+    // XP above
+
+
+    // Combat System //////////
+    bool playerAttacksFirst() {
+        // Simple random initiative for now
+        return rand() % 2 == 0;  // 50-50 chance
+    }
+
+    void combat(Character& player, NPC& enemy) {
+        bool playerTurn = playerAttacksFirst();
+
+        std::cout << (playerTurn ? "You attack first!\n" : "Zombie attacks first!\n");
+
+        while (player.health > 0 && enemy.health > 0) {
+            if (playerTurn) {
+                enemy.health -= player.strength;
+                std::cout << "You hit the zombie for " << player.strength << " damage.\n";
+            }
+            else {
+                player.health -= enemy.strength;
+                std::cout << "Zombie hits you for " << enemy.strength << " damage.\n";
+            }
+
+            if (enemy.health <= 0) {
+                std::cout << "Zombie defeated!\n";
+                enemy.isDefeated = true;
+                addEXP(100);
+                break;
+            }
+            else if (player.health <= 0) {
+                std::cout << "You have been defeated!\n";
+                break;
+            }
+
+            playerTurn = !playerTurn;  // Switch turns
         }
     }
 
