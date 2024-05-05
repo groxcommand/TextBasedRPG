@@ -34,16 +34,21 @@ public:
 class Character {
 public:
     std::string name;
+    std::string charClass;
     int health;
     int strength;
     int dex;
     int magic;
+    int level = 1;
+    int exp = 0;
+    int neededEXP = 100;
+    int maxhealth = health;
 
     int x; // Player's x coordinates
     int y; // Player's y coordinates
 
-    Character(std::string name, int health, int strength, int dex, int magic, int startX, int startY) :
-        name(name), health(health), strength(strength), dex(dex), magic(magic), x(startX), y(startY) {}
+    Character(std::string name, int health, int strength, int dex, int magic, int startX, int startY, int startlvl, std::string charClass) :
+        name(name), health(health), strength(strength), dex(dex), magic(magic), x(startX), y(startY), level(startlvl), charClass(charClass) {}
 
 
     void displayCharacter() {
@@ -86,28 +91,28 @@ Character createCharacter() {
         {
         case 1: // Barb (High Strength / High Health / Low Agility / Low Magic)
             std::cout << "You chose a Barbarian \n";
-            return Character(name, 125, 15, 5, 5, 0, 0);
+            return Character(name, 125, 15, 5, 5, 0, 0, 1, "Barbarian");
 
         case 2: // Warrior (High Strength / Medium Health / Medium Agility / Low Magic)
             std::cout << "You chose a Warrior \n";
-            return Character(name, 100, 15, 10, 5, 0, 0);
+            return Character(name, 100, 15, 10, 5, 0, 0, 1, "Warrior");
 
         case 3: // Light Mage (Low Strength / Low Health / Medium Agility / High Magic)
             std::cout << "You chose a Light Mage \n";
-            return Character(name, 75, 5, 10, 15, 0, 0);
+            return Character(name, 75, 5, 10, 15, 0, 0, 1, "Mage");
 
         case 4: // Thief (Medium Strength / Low Health / High Agility / Low Magic)
             std::cout << "You chose a Thief \n";
-            return Character(name, 75, 10, 15, 5, 0, 0);
+            return Character(name, 75, 10, 15, 5, 0, 0, 1, "Thief");
 
         case 5: // Wanderer (Medium Strength / Medium Health / Medium Agility / Medium Magic)
             std::cout << "You chose a Wanderer \n";
-            return Character(name, 100, 10, 10, 10, 0, 0);
+            return Character(name, 100, 10, 10, 10, 0, 0, 1, "Wanderer");
 
         default:
             std::cout << "Invalid, starting as a Wanderer";
             // Wanderer (Medium Strength / Medium Health / Medium Agility / Medium Magic)
-            return Character(name, 100, 10, 10, 10, 0, 0);
+            return Character(name, 100, 10, 10, 10, 0, 0, 1, "Wanderer");
         }
 }
 
@@ -154,6 +159,74 @@ public:
             }
 
             playerTurn = !playerTurn;  // Switch turns
+        }
+    }
+
+    // XP Function
+
+
+
+    void levelUp() {
+        player.level += 1;
+        player.exp = player.exp - player.neededEXP;
+        player.neededEXP = player.neededEXP * 1.2; // 20% exp needed for next
+
+        if (player.charClass == "Barbarian")
+        {
+            player.strength += 8;
+            player.dex += 2;
+            player.magic += 2;
+            player.maxhealth += 20;
+        }
+        else if (player.charClass == "Warrior")
+        {
+            player.strength += 8;
+            player.dex += 4;
+            player.magic += 2;
+            player.maxhealth += 15;
+        }
+        else if (player.charClass == "Mage")
+        {
+            player.strength += 2;
+            player.dex += 2;
+            player.magic += 10;
+            player.maxhealth += 5;
+        }
+        else if (player.charClass == "Thief")
+        {
+            player.strength += 4;
+            player.dex += 8;
+            player.magic += 2;
+            player.maxhealth += 10;
+        }
+        else if (player.charClass == "Wanderer")
+        {
+            player.strength += 5;
+            player.dex += 5;
+            player.magic += 5;
+            player.maxhealth += 10;
+        }
+        else
+        {
+            player.strength += 5;
+            player.dex += 5;
+            player.magic += 5;
+            player.maxhealth += 10;
+        }
+
+        player.health = player.maxhealth;
+        std::cout << "Congratulations! You have leveled up to level " << player.level << " !! \n";
+        std::cout << "Type 'stats' to view details";
+
+    }
+
+
+
+    void addEXP(int amt) {
+        player.exp += amt;
+        if (player.exp == player.neededEXP)
+        {
+            levelUp();
         }
     }
 
