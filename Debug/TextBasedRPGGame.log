@@ -1,11 +1,11 @@
 ﻿  TextBasedRPGGame.cpp
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(108,25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(314,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(315,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(360,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(361,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(373,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(374,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(403,16): warning C4018: '<': signed/unsigned mismatch
-C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(414,16): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(110,25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(331,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(332,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(377,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(378,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(390,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(391,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(420,16): warning C4018: '<': signed/unsigned mismatch
+C:\Users\19189\source\repos\TextBasedRPGGame\TextBasedRPGGame\TextBasedRPGGame.cpp(431,16): warning C4018: '<': signed/unsigned mismatch
   TextBasedRPGGame.vcxproj -> C:\Users\19189\source\repos\TextBasedRPGGame\Debug\TextBasedRPGGame.exe

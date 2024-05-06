@@ -46,6 +46,8 @@ public:
 	// New WIP 
 	int mana;
 	int stamina;
+	int maxStamina = stamina;
+	int maxMana = mana;
 	std::vector<std::string> spells;
 	std::vector<std::string> inventory;
 
@@ -65,9 +67,9 @@ public:
 			<< "Strength: " << strength << "\n"
 			<< "Agility: " << dex << "\n"
 			<< "Magic: " << magic << "\n"
-			<< "EXP: " << exp << "/" << neededEXP << "\n"
-			<< "Mana: " << mana << "\n"
-			<< "Stamina: " << stamina << "\n"
+			<< "EXP: " << exp << " / " << neededEXP << "\n"
+			<< "Mana: " << mana <<  " / " << maxMana << "\n"
+			<< "Stamina: " << stamina << " / " << maxStamina << "\n"
 
 			<< std::endl;
 	}
@@ -190,7 +192,22 @@ Character createCharacter() {
 		<< "\n(Medium Strength - Low Health/Magic - High Agility)\n4. Thief"
 		<< " \n ===================="
 		<< "\n(Medium Strength/Health/Agility/Magic)\n5. Wanderer \n \n";
-	std::cin >> classChoice;
+
+	while (true)
+	{
+		if (std::cin >> classChoice)
+		{
+			break;
+		}
+		else
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Invalid class choice, try again using just a number.\n";
+		}
+
+	}
+
 
 
 
