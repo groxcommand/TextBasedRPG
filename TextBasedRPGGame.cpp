@@ -40,8 +40,8 @@ public:
 	int dex;
 	int magic;
 	int level = 1;
-	int exp = 0;
-	int neededEXP = 100;
+	double exp = 0;
+	double neededEXP = 100;
 	int maxhealth = health;
 	// New WIP 
 	int mana;
@@ -84,6 +84,16 @@ public:
 
 	}
 
+	void heavyAttack(NPC& target) {
+
+		int damage = (strength * 2);
+
+		target.health -= damage;
+		std::cout << name << " attacks " << target.name << " for " << damage << " damage." << std::endl;
+
+
+	}
+
 
 	void performAction(const std::string& actionType, NPC& target) {
 		if (actionType == "Basic Attack") {
@@ -107,7 +117,7 @@ public:
 	void levelUp() {
 		level += 1;
 		exp = exp - neededEXP;
-		neededEXP = neededEXP * 1.2; // 20% exp needed for next
+		neededEXP = neededEXP * (1.2); // 20% exp needed for next
 
 		if (charClass == "Barbarian")
 		{
@@ -201,7 +211,9 @@ Character createCharacter() {
 		}
 		else
 		{
+			// clear any error states
 			std::cin.clear();
+			// ignore the input
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Invalid class choice, try again using just a number.\n";
 		}
@@ -256,33 +268,82 @@ public:
 		setInitialPlayerPosition();
 	}
 
+	int highestNPCStat(NPC& npc) {
+		return std::max(npc.strength, npc.magic);
+	}
+
 	// Combat System //////////
-	bool playerAttacksFirst() {
-		// Simple random initiative for now
-		return rand() % 2 == 0;  // 50-50 chance
+	bool playerAttacksFirst(Character& player, NPC& enemy) {
+		int totalDex = player.dex + enemy.dex;
+		if (totalDex == 0) return rand() % 2 == 0;  // Avoid division by zero, fallback to 50-50 chance
+
+		// Calculate the probability of the player attacking first
+		double playerProbability = static_cast<double>(player.dex) / totalDex;
+
+		// Generate a random number between 0 and 1
+		double randValue = static_cast<double>(rand()) / RAND_MAX;
+
+		// Determine if the player attacks first based on the calculated probability
+		return randValue < playerProbability;
 	}
 
 	void combat(Character& player, NPC& enemy) {
-		bool playerTurn = playerAttacksFirst();
-		std::cout << (playerTurn ? "You attack first!\n" : "Zombie attacks first!\n");
+		bool playerTurn = playerAttacksFirst(player, enemy);
+		std::cout << (playerTurn ? "You attack first!\n" : "Monster attacks first!\n");
 
 		while (player.health > 0 && enemy.health > 0) {
 			if (playerTurn) {
 				std::cout << "Choose your action:\n";
-				std::cout << "1. Basic Attack\n";
-				/*std::cout << "2. Heavy Attack\n";
-				std::cout << "3. Use Item\n";
+				std::cout << "1. Basic Attack (10 stamina)\n";
+				std::cout << "2. Heavy Attack (30 stamina)\n";
+				/*std::cout << "3. Use Item\n";
 				std::cout << "4. Defend\n";
 				std::cout << "Enter choice: ";*/
 				int choice;
-				std::cin >> choice;
+				while (true)
+				{
+					if (std::cin >> choice)
+					{
+						break;
+					}
+					else
+					{
+						// clear any error states
+						std::cin.clear();
+						// ignore the input
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+						std::cout << "Invalid class choice, try again using just a number.\n";
+					}
+
+				}
 
 				switch (choice) {
 				case 1:
-					player.basicAttack(enemy);
+					if (player.stamina < 10)
+					{
+						std::cout << "Not enough stamina! Resting!" << "\n";
+						player.stamina += 5;
+						std::cout << "Stamina: " << player.stamina << " / " << player.maxStamina << "\n";
+					}
+					else {
+						player.basicAttack(enemy);
+						player.stamina -= 10;
+						std::cout << "Stamina: " << player.stamina << " / " << player.maxStamina << "\n";
+					}
 					break;
 				case 2:
-					//player.heavyAttack(enemy);
+					if (player.stamina < 30)
+					{
+						std::cout << "Not enough stamina! Resting!" << "\n";
+						player.stamina += 5;
+						std::cout << "Stamina: " << player.stamina << " / " << player.maxStamina << "\n";
+					}
+					else {
+						player.heavyAttack(enemy);
+						player.stamina -= 30;
+						std::cout << "Heavy Attack!\n";
+						std::cout << "Stamina: " << player.stamina << " / " << player.maxStamina << "\n";
+					}
 					break;
 				case 3:
 					//player.useItem("HealthPotion");
@@ -296,13 +357,15 @@ public:
 				}
 			}
 			else {
-				std::cout << "Zombie hits you for " << enemy.strength << " Damage! \n";
+				std::cout << enemy.name << " hits you for " << highestNPCStat(enemy) << " Damage! \n";
 				player.health -= enemy.strength;
 			}
 
 			if (enemy.health <= 0) {
-				std::cout << "Zombie defeated!\n";
+				std::cout << enemy.name << " defeated!\n";
 				enemy.isDefeated = true;  // Mark the enemy as defeated
+				player.stamina = player.maxStamina; // refresh stam
+				player.mana = player.maxMana; // refresh mana
 				player.addEXP(50);  // Award experience points
 				break;
 			}
