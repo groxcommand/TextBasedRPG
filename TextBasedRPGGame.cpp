@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <vector>
 #include <iomanip>
@@ -58,6 +58,16 @@ public:
 		name(name), health(health), strength(strength), dex(dex), magic(magic), x(startX), y(startY), level(startlvl),
 		charClass(charClass), mana(startMana), stamina(startStamina) {}
 
+	//display
+
+	std::string heroAttack =
+
+		"     ==\n"
+		"     ||__________________________\n"
+		"OOOOO||_________________________/\n"
+			"     ||\n"
+			"     ==\n";
+
 
 	void displayCharacter() {
 		std::cout << "Name: " << name << "\n"
@@ -79,7 +89,7 @@ public:
 		int damage = strength;
 
 		target.health -= damage;
-		std::cout << name << " attacks " << target.name << " for " << damage << " damage." << std::endl;
+		std::cout << name << " attacks " << target.name << " for " << damage << " damage." << "\n" << heroAttack << std::endl;
 
 
 	}
@@ -262,6 +272,35 @@ public:
 	Character player;
 	std::vector<std::vector<std::string>> map;
 	std::vector<NPC> npcs;
+	std::string heroArt =
+		"   Hero:\n"
+		"    O\n"
+		"   /|\\\n"
+		"   / \\\n";
+
+	std::string monsterArt =
+
+		"														\n"
+		"                          +######                      \n"
+		"                        +#+----++++                    \n"
+		"                        ++--++-+-+++#                  \n"
+		"                       ++--+------+++#                 \n"
+		"                       ++++-+#+--+####                 \n"
+		"                      ##+++-+##+-++++#                 \n"
+		"                     #++++---+++######                 \n"
+		"                    ###+------+#######                 \n"
+		"                   #++-+++++-+#####                    \n"
+		"                  #+++------+#####+#                   \n"
+		"                 #++-++----+########+++#               \n"
+		"              #+#++--+-----+++#######+-+#              \n"
+		"             +++-+---+#++-++-----++-----+#             \n"
+		"          #++++-+--------------------++++--++          \n"
+		"          ++-----+------------++----++-------##        \n"
+		"          #++----+#++--++------+#++#+-------+#         \n"
+		"              ####++-------------------++###           \n"
+		"                    ###++--------++++##                \n"
+		"                        #########                      \n";
+																
 
 	GameState() : player(createCharacter()) {  // Initialize the player using the createCharacter function
 		initializeMap();
@@ -290,6 +329,8 @@ public:
 	void combat(Character& player, NPC& enemy) {
 		bool playerTurn = playerAttacksFirst(player, enemy);
 		std::cout << (playerTurn ? "You attack first!\n" : "Monster attacks first!\n");
+		std::cout << monsterArt << "\n";
+
 
 		while (player.health > 0 && enemy.health > 0) {
 			if (playerTurn) {
